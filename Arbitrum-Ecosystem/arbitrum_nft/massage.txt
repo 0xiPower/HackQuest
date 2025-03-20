@@ -1,0 +1,142 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cargo stylus check -e https://sepolia-rollup.arbitrum.io/rpc
+
+stripped custom section from user wasm to remove any sensitive data
+contract size: 19.3 KB
+wasm size: 72.8 KB
+File used for deployment hash: ./Cargo.lock
+File used for deployment hash: ./Cargo.toml
+File used for deployment hash: ./examples/counter.rs
+File used for deployment hash: ./rust-toolchain.toml
+File used for deployment hash: ./src/erc721.rs
+File used for deployment hash: ./src/lib.rs
+File used for deployment hash: ./src/main.rs
+project metadata hash computed on deployment: "7e0ebf56ab913f7bac45a941a8cb55b28c54c3182753031d9de2f607e4a5b681"
+stripped custom section from user wasm to remove any sensitive data
+contract size: 19.3 KB
+wasm data fee: 0.000133 ETH (originally 0.000111 ETH with 20% bump)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cargo stylus deploy -e $RPC_URL --private-key $PRIV_KEY_PATH
+
+stripped custom section from user wasm to remove any sensitive data
+contract size: 19.3 KB
+wasm size: 72.9 KB
+File used for deployment hash: ./Cargo.lock
+File used for deployment hash: ./Cargo.toml
+File used for deployment hash: ./examples/counter.rs
+File used for deployment hash: ./rust-toolchain.toml
+File used for deployment hash: ./src/erc721.rs
+File used for deployment hash: ./src/lib.rs
+File used for deployment hash: ./src/main.rs
+project metadata hash computed on deployment: "7e0ebf56ab913f7bac45a941a8cb55b28c54c3182753031d9de2f607e4a5b681"
+stripped custom section from user wasm to remove any sensitive data
+contract size: 19.3 KB
+wasm data fee: 0.000133 ETH (originally 0.000111 ETH with 20% bump)
+deployed code at address: 0x3d48b6b58404273e87aeeaacab5a6b2d781d6447
+deployment tx hash: 0xa757aefc370a370cb8d62be7c513e0504e9bf5081e240a9dc3755526c2f4b918
+contract activated and ready onchain with tx hash: 0xa557cce38d57ecf17d0a646fe7fbf01b3530c39644bd367bff727e880752aaa4
+
+NOTE: We recommend running cargo stylus cache bid 3d48b6b58404273e87aeeaacab5a6b2d781d6447 0 to cache your activated contract in ArbOS.
+Cached contracts benefit from cheaper calls. To read more about the Stylus contract cache, see
+https://docs.arbitrum.io/stylus/concepts/stylus-cache-manager
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cargo stylus export-abi
+
+// SPDX-License-Identifier: MIT-OR-APACHE-2.0
+pragma solidity ^0.8.23;
+
+interface IErc721  {
+    function name() external pure returns (string memory);
+
+    function symbol() external pure returns (string memory);
+
+    function tokenURI(uint256 token_id) external view returns (string memory);
+
+    function balanceOf(address owner) external view returns (uint256);
+
+    function ownerOf(uint256 token_id) external view returns (address);
+
+    function safeTransferFrom(address from, address to, uint256 token_id, bytes calldata data) external;
+
+    function safeTransferFrom(address from, address to, uint256 token_id) external;
+
+    function transferFrom(address from, address to, uint256 token_id) external;
+
+    function approve(address approved, uint256 token_id) external;
+
+    function setApprovalForAll(address operator, bool approved) external;
+
+    function getApproved(uint256 token_id) external returns (address);
+
+    function isApprovedForAll(address owner, address operator) external returns (bool);
+
+    function supportsInterface(bytes4 _interface) external pure returns (bool);
+
+    error InvalidTokenId(uint256);
+
+    error NotOwner(address, uint256, address);
+
+    error NotApproved(address, address, uint256);
+
+    error TransferToZero(uint256);
+
+    error ReceiverRefused(address, uint256, bytes4);
+}
+
+interface IStylusNFT is IErc721  {
+    function mint() external;
+
+    function mintTo(address to) external;
+
+    function burn(uint256 token_id) external;
+
+    function totalSupply() external returns (uint256);
+
+    error InvalidTokenId(uint256);
+
+    error NotOwner(address, uint256, address);
+
+    error NotApproved(address, address, uint256);
+
+    error TransferToZero(uint256);
+
+    error ReceiverRefused(address, uint256, bytes4);
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cast call --rpc-url $RPC_URL 0x3d48B6B58404273E87aEeAaCAb5a6B2d781d6447 "balanceOf(address owner)" $STYLUS_CONTRACT_ADDRESS
+0x0000000000000000000000000000000000000000000000000000000000000000
+
+cast call --rpc-url $RPC_URL 0x3d48B6B58404273E87aEeAaCAb5a6B2d781d6447 "ownerOf(uint256 token_id)" 0
+Error: server returned an error response: error code 3: execution reverted, data: "0xed15e6cf0000000000000000000000000000000000000000000000000000000000000000"
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cast send --rpc-url $RPC_URL --private-key $PRIV_KEY_PATH 0x3d48B6B58404273E87aEeAaCAb5a6B2d781d6447 "mintTo(address to)" $STYLUS_CONTRACT_ADDRESS
+
+blockHash            0xe39cc20d6efc8fdcd561af930090cac2043c0c934db27b861b66cd84d9fec2eb
+blockNumber          134099600
+contractAddress      
+cumulativeGasUsed    3064756
+effectiveGasPrice    100960000
+from                 0xB0324F835A6F968C998b6E4B179caBee2e20cC48
+gasUsed              205485
+logs                 [{"address":"0x3d48b6b58404273e87aeeaacab5a6b2d781d6447","topics":["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef","0x0000000000000000000000000000000000000000000000000000000000000000","0x000000000000000000000000b0324f835a6f968c998b6e4b179cabee2e20cc48","0x0000000000000000000000000000000000000000000000000000000000000000"],"data":"0x","blockHash":"0xe39cc20d6efc8fdcd561af930090cac2043c0c934db27b861b66cd84d9fec2eb","blockNumber":"0x7fe3290","transactionHash":"0x91a70b9fe817bc3c18bb5961c5b7ab5e34a0690f0dd29d1636431d7f6781dfe6","transactionIndex":"0x4","logIndex":"0x6","removed":false}]
+logsBloom            0x00000000200000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000800000008000000000000000000000000000000000000000000000000020000000000000000000800000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000002200000000000000000000000000000000000000000000000800020000000000000000000000000000000000000000000000000000000000000000000
+root                 
+status               1 (success)
+transactionHash      0x91a70b9fe817bc3c18bb5961c5b7ab5e34a0690f0dd29d1636431d7f6781dfe6
+transactionIndex     4
+type                 2
+blobGasPrice         
+blobGasUsed          
+authorizationList    
+to                   0x3d48B6B58404273E87aEeAaCAb5a6B2d781d6447
+gasUsedForL1         64189
+l1BlockNumber        7941781
+timeboosted          false
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cast call --rpc-url $RPC_URL 0x3d48B6B58404273E87aEeAaCAb5a6B2d781d6447 "balanceOf(address owner)" $STYLUS_CONTRACT_ADDRESS
+0x0000000000000000000000000000000000000000000000000000000000000001
+
+cast call --rpc-url $RPC_URL 0x3d48B6B58404273E87aEeAaCAb5a6B2d781d6447 "ownerOf(uint256 token_id)" 0
+0x000000000000000000000000b0324f835a6f968c998b6e4b179cabee2e20cc48
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
